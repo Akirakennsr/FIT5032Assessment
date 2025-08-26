@@ -1,47 +1,60 @@
+
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from 'vue'
+import UserLogin from './components/UserLogin.vue'
+
+const currentView = ref('home')
+
+function goTo(view) {
+	currentView.value = view
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+	<nav class="main-nav">
+		<ul>
+			<li :class="{active: currentView === 'home'}" @click="goTo('home')">Home</li>
+			<li :class="{active: currentView === 'login'}" @click="goTo('login')">User Login</li>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+		</ul>
+	</nav>
+	<main>
+		<section v-if="currentView === 'home'">
+			<h1>Welcome to the Home Page</h1>
+			<p>This is your project home page content. Please refer to the design document for details and features.</p>
+		</section>
+		<section v-else-if="currentView === 'login'">
+			<UserLogin />
+		</section>
+	</main>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+.main-nav {
+	background: #42b983;
+	padding: 0 20px;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.main-nav ul {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.main-nav li {
+	color: #fff;
+	padding: 16px 24px;
+	cursor: pointer;
+	font-size: 18px;
+	transition: background 0.2s;
+}
+.main-nav li.active, .main-nav li:hover {
+	background: #369870;
+}
+main {
+	padding: 32px 16px;
+	min-height: 60vh;
+}
+h1 {
+	margin-bottom: 16px;
 }
 </style>
