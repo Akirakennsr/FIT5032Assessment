@@ -7,15 +7,15 @@ import HomePage from './components/HomePage.vue'
 
 const navItems = [
 	{
-		name: 'home', label: 'Home', subs: []
+		name: 'home', label: 'Home', color: '#0f7be0', subs: []
 	},
 	{
-		name: 'login', label: 'User Login', subs: []
+		name: 'login', label: 'User Login', color: '#0f7be0', subs: []
 	},
     {
-		name: 'about', label: 'About Us', subs: [
-            { name: 'mission', label: 'Mission & Vision' }, 
-            { name: 'team', label: 'Our Team & Board' }]
+		name: 'about', label: 'About Us', color: '#0f7be0', subs: [
+            { name: 'mission', label: 'Mission & Vision', }, 
+            { name: 'team', label: 'Our Team & Board',  }]
 	},
 ]
 
