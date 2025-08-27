@@ -10,15 +10,15 @@ const navItems = [
 		name: 'home', label: 'Home', color: '#0f7be0', subs: []
 	},
 	{
-		name: 'login', label: 'User Login', color: '#0f7be0', subs: []
-	},
-    {
 		name: 'about', label: 'About Us', color: '#0f7be0', subs: [
             { name: 'mission', label: 'Mission & Vision', }, 
             { name: 'team', label: 'Our Team & Board',  },
             { name: 'partners', label: 'Our Partners',  },
             { name: 'annual', label: 'Annual Report & Research',  },
         ]
+	},
+	{
+		name: 'login', label: 'User Login', color: '#0f7be0', subs: [], right: true
 	},
 ]
 
@@ -54,7 +54,7 @@ function getCurrentComponent() {
 				@mouseenter="hoverNav = item.name"
 				@mouseleave="hoverNav = null"
 				@click="selectMain(item.name)"
-				:class="{active: currentMain === item.name}"
+				:class="[{active: currentMain === item.name}, item.right ? 'right-nav' : '']"
 			>
 				{{ item.label }}
 				<!-- sub nav -->
@@ -99,6 +99,9 @@ function getCurrentComponent() {
 }
 .main-nav li.active, .main-nav li:hover {
 	filter: brightness(0.95);
+}
+.right-nav {
+	margin-left: auto;
 }
 /* sub nav */
 .sub-nav {
