@@ -3,8 +3,8 @@
 import { ref } from 'vue'
 import UserLogin from './components/UserLogin.vue'
 import HomePage from './components/HomePage.vue'
-
-
+import AboutUs from './components/aboutus/AboutUs.vue'
+import Mission from './components/aboutus/Mission.vue'
 const navItems = [
 	{
 		name: 'home', label: 'Home', color: '#0f7be0', subs: []
@@ -15,7 +15,10 @@ const navItems = [
     {
 		name: 'about', label: 'About Us', color: '#0f7be0', subs: [
             { name: 'mission', label: 'Mission & Vision', }, 
-            { name: 'team', label: 'Our Team & Board',  }]
+            { name: 'team', label: 'Our Team & Board',  },
+            { name: 'partners', label: 'Our Partners',  },
+            { name: 'annual', label: 'Annual Report & Research',  },
+        ]
 	},
 ]
 
@@ -35,7 +38,8 @@ function selectSub(main, sub) {
 function getCurrentComponent() {
 	if (currentMain.value === 'home') return HomePage
 	if (currentMain.value === 'login') return UserLogin
-	if (currentMain.value === 'about') return { template: '<h1>About Us</h1>' }
+    if (currentMain.value === 'about' && currentSub.value === 'mission') return Mission
+    if (currentMain.value === 'about' && !currentSub.value) return AboutUs
 	return { template: '<h1>Not Found</h1>' }
 }
 </script>
@@ -98,9 +102,11 @@ function getCurrentComponent() {
 }
 /* sub nav */
 .sub-nav {
-	position: absolute;
+	position: fixed;
 	top: 100%;
 	left: 0;
+    width: 800px;
+    display: flex;
 	background: #fff;
 	min-width: 200px;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -109,9 +115,11 @@ function getCurrentComponent() {
 	margin: 0;
 }
 .sub-nav li {
+    flex: 1;
+    text-align: center;
 	color: #333;
 	background: #f7f7f7;
-	padding: 12px 24px;
+	padding: 16px 0px;
 	font-size: 16px;
 	cursor: pointer;
 	border-bottom: 1px solid #eee;
