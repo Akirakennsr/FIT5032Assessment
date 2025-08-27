@@ -1,7 +1,9 @@
 
 <script setup>
 import { ref } from 'vue'
+
 import UserLogin from './components/UserLogin.vue'
+import HomePage from './components/HomePage.vue'
 
 const currentView = ref('home')
 
@@ -20,8 +22,7 @@ function goTo(view) {
 	</nav>
 	<main>
 		<section v-if="currentView === 'home'">
-			<h1>Welcome to the Home Page</h1>
-			<p>This is your project home page content. Please refer to the design document for details and features.</p>
+			<HomePage />
 		</section>
 		<section v-else-if="currentView === 'login'">
 			<UserLogin />
@@ -31,7 +32,7 @@ function goTo(view) {
 
 <style scoped>
 .main-nav {
-	background: #42b983;
+	background: #18bae7;
 	padding: 0 20px;
 }
 .main-nav ul {
@@ -48,7 +49,7 @@ function goTo(view) {
 	transition: background 0.2s;
 }
 .main-nav li.active, .main-nav li:hover {
-	background: #369870;
+	background: #0f7be0;
 }
 main {
 	padding: 32px 16px;

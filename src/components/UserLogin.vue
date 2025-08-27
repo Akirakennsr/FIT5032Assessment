@@ -1,18 +1,24 @@
 <template>
-  <div class="login-container">
-    <h2>User Login</h2>
-    <form @submit.prevent="handleLogin">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input v-model="username" id="username" type="text" required />
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8 col-sm-10 offset-sm-1 offset-md-2">
+        <div class="login-container">
+          <h2>User Login</h2>
+          <form @submit.prevent="handleLogin">
+            <div class="form-group mb-3">
+              <label for="username">Username</label>
+              <input v-model="username" id="username" type="text" class="form-control" required />
+            </div>
+            <div class="form-group mb-3">
+              <label for="password">Password</label>
+              <input v-model="password" id="password" type="password" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-success w-100">Login</button>
+            <div v-if="error" class="error mt-2">{{ error }}</div>
+          </form>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input v-model="password" id="password" type="password" required />
-      </div>
-      <button type="submit">Login</button>
-      <div v-if="error" class="error">{{ error }}</div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -60,7 +66,7 @@ input {
 button {
   width: 100%;
   padding: 10px;
-  background: #42b983;
+  background: #18bae7;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -68,7 +74,7 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background: #369870;
+  background: #0f7be0;
 }
 .error {
   color: #e74c3c;
