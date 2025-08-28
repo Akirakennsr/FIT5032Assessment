@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import UserLogin from './components/UserLogin.vue'
+import UserLogin from './components/user/UserLogin.vue'
+import UserRegister from './components/user/UserRegister.vue'
 import HomePage from './components/HomePage.vue'
 import AboutUs from './components/aboutus/AboutUs.vue'
 import Mission from './components/aboutus/Mission.vue'
@@ -17,7 +18,9 @@ const navItems = [
         ]
 	},
 	{
-		name: 'login', label: 'User Login', color: '#0f7be0', subs: [], right: true
+		name: 'login', label: 'Login', color: '#0f7be0', subs: [
+            { name: 'register', label: 'Register' }
+        ], right: true
 	},
 ]
 
@@ -36,6 +39,7 @@ function selectSub(main, sub) {
 
 function getCurrentComponent() {
 	if (currentMain.value === 'home') return HomePage
+	if (currentMain.value === 'login' && currentSub.value === 'register') return UserRegister
 	if (currentMain.value === 'login') return UserLogin
     if (currentMain.value === 'about' && currentSub.value === 'mission') return Mission
     if (currentMain.value === 'about' && !currentSub.value) return AboutUs
@@ -136,7 +140,7 @@ function getCurrentComponent() {
 }
 /* sub nav */
 .sub-nav {
-	position: fixed;
+	position: absolute;
 	top: 100%;
 	left: 0;
     width: 800px;
