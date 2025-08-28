@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref } from 'vue'
 import UserLogin from './components/UserLogin.vue'
@@ -71,9 +70,41 @@ function getCurrentComponent() {
 			</li>
 		</ul>
 	</nav>
+    
 	<main>
 		<component :is="getCurrentComponent()" />
 	</main>
+
+	<footer class="footer bg-light py-1">
+		<div class="container mt-2">
+			<div class="row">
+				<div class="mt-2 col-md-4 col-sm-3 col-3">
+					<h4>Helpful Information</h4>
+					<ul class="list-unstyled">
+						<li><a href="#">FAQ</a></li>
+						<li><a href="#">Community Champions</a></li>
+						<li><a href="#">Stay in touch</a></li>
+					</ul>
+				</div>
+				<div class="mt-2 col-md-4 col-sm-3 col-3">
+					<h4>Talk it through with us</h4>
+					<ul class="list-unstyled">
+						<li>Call 0422 088 212</li>
+						<li><a href="#">Chat Online</a></li>
+						<li><a href="#">Email us</a></li>
+					</ul>
+				</div>
+				<div class="mt-2 col-md-4 col-sm-3 col-3">
+					<h4>Follow us</h4>
+					<ul class="list-inline">
+						<li class="list-inline-item"><a href="#">Facebook</a></li>
+						<li class="list-inline-item"><a href="#">Twitter</a></li>
+						<li class="list-inline-item"><a href="#">LinkedIn</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
 </template>
 
 <style scoped>

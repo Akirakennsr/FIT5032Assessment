@@ -6,7 +6,7 @@
           <h2>User Login</h2>
           <form @submit.prevent="handleLogin">
             <div class="form-group mb-3">
-              <label for="username">Username</label>
+              <label for="username" >Username</label>
               <input v-model="username" id="username" type="text" class="form-control" required />
             </div>
             <div class="form-group mb-3">
