@@ -6,29 +6,36 @@
           <h2>User Register</h2>
           <form @submit.prevent="handleRegister">
             <div class="form-group mb-3">
-              <label for="username">Username</label>
-              <input v-model="formData.username" id="username" type="text" class="form-control" required 
-              @blur="validateName(true)"
-              @input="validateName(false)" />
-              <div v-if="errors.username" class="error">{{ errors.username }}</div>
+                <label for="username">Username</label>
+                <input v-model="formData.username" id="username" type="text" class="form-control" required 
+                @blur="validateName(true)"
+                @input="validateName(false)" />
+                <div v-if="errors.username" class="error">{{ errors.username }}</div>
             </div>
             <div class="form-group mb-3">
-              <label for="password">Password</label>
-              <input v-model="formData.password" id="password" type="password" class="form-control" required 
-              @blur="validatePassword(true)"
-              @input="validatePassword(false)" />
-              <div v-if="errors.password" class="error">{{ errors.password }}</div>
+                <label for="password">Password</label>
+                <input v-model="formData.password" id="password" type="password" class="form-control" required 
+                @blur="validatePassword(true)"
+                @input="validatePassword(false)" />
+                <div v-if="errors.password" class="error">{{ errors.password }}</div>
             </div>
             <div class="form-group mb-3">
-              <label for="confirmPassword">Confirm Password</label>
-              <input v-model="formData.confirmPassword" id="confirmPassword" type="password" class="form-control" required />
+                <label for="confirmPassword">Confirm Password</label>
+                <input v-model="formData.confirmPassword" id="confirmPassword" type="password" class="form-control" required />
             </div>
             <div class="form-group mb-3">
-              <label for="email">Email</label>
-              <input v-model="formData.email" id="email" type="email" class="form-control" required 
-              @blur="validateEmail(true)"
-              @input="validateEmail(false)" />
-              <div v-if="errors.email" class="error">{{ errors.email }}</div>
+                <label for="email">Email</label>
+                <input v-model="formData.email" id="email" type="email" class="form-control" required 
+                @blur="validateEmail(true)"
+                @input="validateEmail(false)" />
+                <div v-if="errors.email" class="error">{{ errors.email }}</div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="phone">Phone</label>
+                <input v-model="formData.phone" id="phone" type="text" class="form-control" required 
+                @blur="validatePhone(true)"
+                @input="validatePhone(false)" />
+                <div v-if="errors.phone" class="error">{{ errors.phone }}</div>
             </div>
             <button type="submit" class="btn btn-primary w-50">Register</button>
           </form>
@@ -37,6 +44,7 @@
             <DataTable :value="submitRegister" stripedRows class="p-datatable">
               <Column field="username" header="Username"></Column>
               <Column field="password" header="Password"></Column>
+              <Column field="email" header="Email"></Column>
             </DataTable>
           </div>
         </div>
@@ -52,69 +60,105 @@ import Column from 'primevue/column';
 const submitRegister = ref([]);
 
 const formData = ref({
-  username: '',
-  password: '',
-  confirmPassword: '',
-  email: ''
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+    phone: ''
 });
 
 const errors = ref({
-  username: null,
-  password: null,
-  email: null
+    username: null,
+    password: null,
+    email: null,
+    phone: null
 });
 
 function validateName(blur) {
-  if (formData.value.username.length < 3) {
-    if (blur) errors.value.username = "Name must be at least 3 characters";
-  } else {
-    errors.value.username = null;
-  }
+    if (formData.value.username.length < 3) {
+        if (blur) errors.value.username = "Name must be at least 3 characters";
+    } else {
+        errors.value.username = null;
+    }
 }
 
 function validatePassword(blur) {
-  const password = formData.value.password;
+    const password = formData.value.password;
 
-  if (password.length < 8) {
-    if (blur) errors.value.password = "Password must be at least 8 characters";
-    return;
-  }
+    if (password.length < 8) {
+        if (blur) errors.value.password = "Password must be at least 8 characters";
+        return;
+    }
 
-  if (!/[a-z]/.test(password)) {
-    if (blur) errors.value.password = "Password must contain at least one lowercase letter";
-    return;
-  }
+    if (!/[a-z]/.test(password)) {
+        if (blur) errors.value.password = "Password must contain at least one lowercase letter";
+        return;
+    }
 
-  if (!/[A-Z]/.test(password)) {
-    if (blur) errors.value.password = "Password must contain at least one uppercase letter";
-    return;
-  }
+    if (!/[A-Z]/.test(password)) {
+        if (blur) errors.value.password = "Password must contain at least one uppercase letter";
+        return;
+    }
 
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
-    if (blur) errors.value.password = "Password must contain at least one special character";
-    return;
-  }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+        if (blur) errors.value.password = "Password must contain at least one special character";
+        return;
+    }
 
-  errors.value.password = null;
+    errors.value.password = null;
 }
 
 function validateEmail(blur) {
-  const email = formData.value.email;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const email = formData.value.email;
+    if (!email.includes('@')) {
+        if (blur) errors.value.email = "Email must contain '@'";
+        return;
+    }
+    const parts = email.split('@');
+    if (parts.length !== 2 || parts[1].length === 0) {
+        if (blur) errors.value.email = "Email must have a domain after '@'";
+        return;
+    }
+    if (!parts[1].includes('.')) {
+        if (blur) errors.value.email = "Email domain must contain a '.'";
+        return;
+    }
+    const domainParts = parts[1].split('.');
+    if (domainParts[domainParts.length - 1].length === 0) {
+        if (blur) errors.value.email = "Email domain must not end with a '.'";
+        return;
+    }
+    errors.value.email = null; 
+}
 
-  if (!emailRegex.test(email)) {
-    if (blur) errors.value.email = "Please enter a valid email address";
-  } else {
-    errors.value.email = null;
-  }
+function validatePhone(blur) {
+    const phone = formData.value.phone;
+    if (phone.startsWith('+61')) {
+        if (phone.length !== 12 || isNaN(phone.slice(3))) {
+            if (blur) errors.value.phone = "Please enter a valid Australian phone number (e.g., +61412345678)";
+            return;
+        }
+    } 
+    else if (phone.startsWith('0')) {
+        if (phone.length !== 10 || isNaN(phone.slice(1))) {
+            if (blur) errors.value.phone = "Please enter a valid Australian phone number (e.g., 0412345678)";
+            return;
+        }
+  } 
+    else {
+        if (blur) errors.value.phone = "Please enter a valid Australian phone number (e.g., +61412345678 or 0412345678)";
+        return;
+    }
+    errors.value.phone = null; 
 }
 
 const handleRegister = () => {
     validateName(true);
     validatePassword(true);
     validateEmail(true);
+    validatePhone(true);
 
-    if (!errors.value.username && !errors.value.password && !errors.value.email) {
+    if (!errors.value.username && !errors.value.password && !errors.value.email && !errors.value.phone) {
         submitRegister.value.push({ 
             ...formData.value,
             id: Date.now(),
@@ -130,7 +174,8 @@ const clearForm = () => {
         username: '',
         password: '',
         confirmPassword: '',
-        email: ''
+        email: '',
+        phone: ''
     };
 };
 
