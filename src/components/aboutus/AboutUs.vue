@@ -1,16 +1,25 @@
 <template>
-  <section class="home-section">
+  <section class="aboutus-section">
     <h1>About Us</h1>
-
+    <p>We are dedicated to supporting the mental health of young people through collaboration with various organizations. Below is a list of our esteemed partners:</p>
+    <DataTable :value="partners" responsiveLayout="scroll">
+      <Column field="name" header="Organization Name"></Column>
+      <Column field="location" header="Location"></Column>
+    </DataTable>
   </section>
 </template> 
  
 <script setup>
+import { ref } from 'vue';
+import DataTable  from 'primevue/datatable';
+import Column from 'primevue/column';
+import partnersData from '../../data/partners.json';
 
+const partners = ref(partnersData);
 </script>
 
 <style scoped>
-.home-section {
+.aboutus-section {
   max-width: 800px;
   margin: 40px auto;
   padding: 32px 16px;

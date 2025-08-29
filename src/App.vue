@@ -45,6 +45,14 @@ function getCurrentComponent() {
     if (currentMain.value === 'about' && !currentSub.value) return AboutUs
 	return { template: '<h1>Not Found</h1>' }
 }
+
+const partners = ref([
+  { name: 'Youth Mental Health Foundation', location: 'Melbourne, Australia' },
+  { name: 'Teen Support Network', location: 'Sydney, Australia' },
+  { name: 'Mindful Futures', location: 'Brisbane, Australia' },
+  { name: 'Wellness for Youth', location: 'Perth, Australia' },
+  { name: 'Hope and Healing', location: 'Adelaide, Australia' }
+]);
 </script>
 
 <template>
