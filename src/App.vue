@@ -175,6 +175,20 @@ function getCurrentComponent() {
 	background: #e0f0fa;
 	color: #0f7be0;
 }
+
+/* Sub-navigation adjustments for small screens */
+@media (max-width: 768px) {
+  .sub-nav {
+    flex-direction: column; /* Stack items vertically */
+    width: 100%; /* Take full width */
+  }
+  .sub-nav li {
+    width: 100%; /* Ensure each item takes full width */
+    text-align: left; /* Align text to the left */
+    padding-left: 16px; /* Add some padding for better readability */
+  }
+}
+
 main {
 	padding: 32px 16px;
 	min-height: 60vh;
