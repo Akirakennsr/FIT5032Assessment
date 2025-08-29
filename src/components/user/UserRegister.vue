@@ -23,6 +23,13 @@
               <label for="confirmPassword">Confirm Password</label>
               <input v-model="formData.confirmPassword" id="confirmPassword" type="password" class="form-control" required />
             </div>
+            <div class="form-group mb-3">
+              <label for="email">Email</label>
+              <input v-model="formData.email" id="email" type="email" class="form-control" required 
+              @blur="validateEmail(true)"
+              @input="validateEmail(false)" />
+              <div v-if="errors.email" class="error">{{ errors.email }}</div>
+            </div>
             <button type="submit" class="btn btn-primary w-50">Register</button>
           </form>
 
@@ -47,12 +54,14 @@ const submitRegister = ref([]);
 const formData = ref({
   username: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  email: ''
 });
 
 const errors = ref({
   username: null,
   password: null,
+  email: null
 });
 
 function validateName(blur) {
@@ -89,11 +98,23 @@ function validatePassword(blur) {
   errors.value.password = null;
 }
 
+function validateEmail(blur) {
+  const email = formData.value.email;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    if (blur) errors.value.email = "Please enter a valid email address";
+  } else {
+    errors.value.email = null;
+  }
+}
+
 const handleRegister = () => {
     validateName(true);
     validatePassword(true);
+    validateEmail(true);
 
-    if (!errors.value.username && !errors.value.password) {
+    if (!errors.value.username && !errors.value.password && !errors.value.email) {
         submitRegister.value.push({ 
             ...formData.value,
             id: Date.now(),
@@ -108,6 +129,8 @@ const clearForm = () => {
     formData.value = {
         username: '',
         password: '',
+        confirmPassword: '',
+        email: ''
     };
 };
 
