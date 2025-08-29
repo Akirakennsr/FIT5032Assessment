@@ -19,7 +19,7 @@ const navItems = [
 	},
 	{
 		name: 'login', label: 'Login', color: '#0f7be0', subs: [
-            { name: 'register', label: 'Register' }
+            { name: 'register', label: 'Register' },
         ], right: true
 	},
 ]
@@ -61,7 +61,11 @@ function getCurrentComponent() {
 			>
 				{{ item.label }}
 				<!-- sub nav -->
-				<ul v-if="item.subs.length && hoverNav === item.name" class="sub-nav">
+				<ul v-if="item.subs.length && hoverNav === item.name" class="sub-nav"
+                    :style="{
+                    left: item.right ? 'auto' : '0',
+                     right: item.right ? '0' : 'auto'
+                    }">
 					<li
 						v-for="sub in item.subs"
 						:key="sub.name"
@@ -143,7 +147,6 @@ function getCurrentComponent() {
 	position: absolute;
 	top: 100%;
 	left: 0;
-    width: 800px;
     display: flex;
 	background: #fff;
 	min-width: 200px;
@@ -151,9 +154,11 @@ function getCurrentComponent() {
 	z-index: 10;
 	padding: 0;
 	margin: 0;
+    transition: all 0.3s ease;
 }
 .sub-nav li {
-    flex: 1;
+    flex: none;
+    width: 200px;
     text-align: center;
 	color: #333;
 	background: #f7f7f7;
