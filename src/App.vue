@@ -46,13 +46,6 @@ function getCurrentComponent() {
 	return { template: '<h1>Not Found</h1>' }
 }
 
-const partners = ref([
-  { name: 'Youth Mental Health Foundation', location: 'Melbourne, Australia' },
-  { name: 'Teen Support Network', location: 'Sydney, Australia' },
-  { name: 'Mindful Futures', location: 'Brisbane, Australia' },
-  { name: 'Wellness for Youth', location: 'Perth, Australia' },
-  { name: 'Hope and Healing', location: 'Adelaide, Australia' }
-]);
 </script>
 
 <template>
@@ -184,16 +177,15 @@ const partners = ref([
 	color: #0f7be0;
 }
 
-/* Sub-navigation adjustments for small screens */
 @media (max-width: 768px) {
   .sub-nav {
-    flex-direction: column; /* Stack items vertically */
-    width: 100%; /* Take full width */
+    flex-direction: column; 
+    width: 100%; 
   }
   .sub-nav li {
-    width: 100%; /* Ensure each item takes full width */
-    text-align: left; /* Align text to the left */
-    padding-left: 16px; /* Add some padding for better readability */
+    width: 100%;
+    text-align: left;
+    padding-left: 16px;
   }
 }
 

@@ -1,7 +1,8 @@
 <template>
   <section class="home-section">
     <h1>Welcome</h1>
-
+    <p>Welcome to our platform dedicated to supporting the mental health of young people. </p>
+    <p>Explore our resources and join us in making a difference!</p>
   </section>
 </template> 
  
