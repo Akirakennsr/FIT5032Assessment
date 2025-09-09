@@ -5,6 +5,8 @@ import UserRegister from './components/user/UserRegister.vue'
 import HomePage from './components/HomePage.vue'
 import AboutUs from './components/aboutus/AboutUs.vue'
 import Mission from './components/aboutus/Mission.vue'
+import { isAuthenticated, logout } from './auth';
+
 const navItems = [
 	{
 		name: 'home', label: 'Home', color: '#0f7be0', subs: []
@@ -46,6 +48,12 @@ function getCurrentComponent() {
 	return { template: '<h1>Not Found</h1>' }
 }
 
+const handleLogout = () => {
+  logout();
+  currentMain.value = 'login';
+  currentSub.value = '';
+};
+
 </script>
 
 <template>
@@ -79,7 +87,9 @@ function getCurrentComponent() {
 			</li>
 		</ul>
 	</nav>
-    
+	<div class="text-end me-4 mt-2">
+    <button v-if="isAuthenticated" class="btn btn-outline-danger btn-sm" @click="handleLogout">Logout</button>
+  </div>
 	<main>
 		<component :is="getCurrentComponent()" />
 	</main>

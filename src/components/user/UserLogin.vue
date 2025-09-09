@@ -34,6 +34,7 @@
 <script setup>
 import { ref } from 'vue'
 import users from '../../data/users.json';
+import { isAuthenticated, login } from '../../auth';
 
 const username = ref('')
 const password = ref('')
@@ -61,7 +62,7 @@ function handleLogin() {
     }
 
     error.value = '';
-    alert('Login successful!')
+    login();
 }
 const validateName=(blur)=>{
     if(formData.value.username.length < 3){
