@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../components/HomePage.vue'
-import AdminPage from '../components/AdminPage.vue'
+import AdminPage from '../components/admin/AdminPage.vue'
 import UserLogin from '../components/user/UserLogin.vue'
 import UserRegister from '../components/user/UserRegister.vue'
 import UserProfile from '../components/user/UserProfile.vue'

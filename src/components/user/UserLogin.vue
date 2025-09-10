@@ -35,7 +35,9 @@
 import { ref } from 'vue'
 import users from '../../data/users.json';
 import { isAuthenticated, login } from '../../auth';
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const username = ref('')
 const password = ref('')
 const error = ref('')
@@ -78,8 +80,14 @@ function handleLogin() {
 
     error.value = '';
     login();
-
     localStorage.setItem('currentUser', JSON.stringify(user));
+    if (user.role === 'admin') {
+        router.push('/admin');
+    } else if (user.role === 'user') {
+        router.push('/user');
+    } else {
+        router.push('/');
+    }
 }
 const validateName=(blur)=>{
     if(formData.value.username.length < 3){
