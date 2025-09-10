@@ -6,6 +6,7 @@ import HomePage from './components/HomePage.vue'
 import AboutUs from './components/aboutus/AboutUs.vue'
 import Mission from './components/aboutus/Mission.vue'
 import { isAuthenticated, logout } from './auth';
+import BHeader from './components/BHeader.vue';
 
 const navItems = [
 	{
@@ -57,44 +58,14 @@ const handleLogout = () => {
 </script>
 
 <template>
-	<nav class="main-nav">
-		<ul>
-			<li
-				v-for="item in navItems"
-				:key="item.name"
-				:style="{background: currentMain === item.name ? item.color : ''}"
-				@mouseenter="hoverNav = item.name"
-				@mouseleave="hoverNav = null"
-				@click="selectMain(item.name)"
-				:class="[{active: currentMain === item.name}, item.right ? 'right-nav' : '']"
-			>
-				{{ item.label }}
-				<!-- sub nav -->
-				<ul v-if="item.subs.length && hoverNav === item.name" class="sub-nav"
-                    :style="{
-                    left: item.right ? 'auto' : '0',
-                     right: item.right ? '0' : 'auto'
-                    }">
-					<li
-						v-for="sub in item.subs"
-						:key="sub.name"
-						@click.stop="selectSub(item.name, sub.name)"
-						:class="{active: currentSub === sub.name && currentMain === item.name}"
-					>
-						{{ sub.label }}
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</nav>
-	<div class="text-end me-4 mt-2">
+  <BHeader />
+  <div class="text-end me-4 mt-2">
     <button v-if="isAuthenticated" class="btn btn-outline-danger btn-sm" @click="handleLogout">Logout</button>
   </div>
-	<main>
-		<component :is="getCurrentComponent()" />
-	</main>
-
-	<footer class="footer bg-light py-1">
+  <main>
+    <router-view></router-view>
+  </main>
+  <footer class="footer bg-light py-1">
 		<div class="container mt-2">
 			<div class="row">
 				<div class="mt-2 col-md-4 col-sm-3 col-3">
