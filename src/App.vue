@@ -59,9 +59,6 @@ const handleLogout = () => {
 
 <template>
   <BHeader />
-  <div class="text-end me-4 mt-2">
-    <button v-if="isAuthenticated" class="btn btn-outline-danger btn-sm" @click="handleLogout">Logout</button>
-  </div>
   <main>
     <router-view></router-view>
   </main>

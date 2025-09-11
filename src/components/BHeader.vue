@@ -51,6 +51,21 @@ const handleLogout = () => {
   currentSub.value = '';
   router.push('/login')
 };
+
+function goProfile() {
+  if (!isAuthenticated.value) {
+    router.push('/login');
+    return;
+  }
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+  if (user?.role === 'admin') {
+    router.push('/admin');
+  } else if (user?.role === 'user') {
+    router.push('/user');
+  } else {
+    router.push('/profile');
+  }
+}
 </script>
 
 <template>
@@ -82,6 +97,11 @@ const handleLogout = () => {
           </li>
         </ul>
       </li>
+      <li class="profile-nav">
+        <button class="profile-btn" @click="goProfile" title="Profile">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M16 20v-2a4 4 0 0 0-8 0v2"/></svg>
+        </button>
+      </li>
     </ul>
   </nav>
   <div class="text-end me-4 mt-2">
@@ -112,6 +132,8 @@ const handleLogout = () => {
 }
 .main-nav li.active, .main-nav li:hover {
   filter: brightness(0.95);
+  background: #62b6cb;
+  color: #e0f0fa;
 }
 .right-nav {
   margin-left: auto;
@@ -148,6 +170,36 @@ const handleLogout = () => {
 .sub-nav li.active, .sub-nav li:hover {
   background: #e0f0fa;
   color: #0f7be0;
+}
+.profile-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding: 0 4px;
+}
+.profile-btn svg {
+  color: #0f7be0;
+  transition: color 0.2s;
+  width: 36px;
+  height: 36px;
+  margin-top: -4px;
+  margin-bottom: -4px;
+}
+.profile-btn:hover svg {
+  color: #bee9e8;
+}
+.profile-nav {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 @media (max-width: 768px) {
