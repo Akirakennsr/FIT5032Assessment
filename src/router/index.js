@@ -6,6 +6,8 @@ import UserRegister from '../components/user/UserRegister.vue'
 import UserProfile from '../components/user/UserProfile.vue'
 import AboutUs from '../components/aboutus/AboutUs.vue'
 import Mission from '../components/aboutus/Mission.vue'
+import Community from '../components/community/Community.vue'
+import DiscussionForum from '../components/community/DiscussionForum.vue'
 
 
 const routes = [
@@ -38,6 +40,14 @@ const routes = [
   { 
     path: '/mission', 
     component: Mission 
+  },
+  { 
+    path: '/community', 
+    component: Community 
+  },
+  { 
+    path: '/forum', 
+    component: DiscussionForum 
   },
 ]
 

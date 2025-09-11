@@ -18,6 +18,11 @@ const navItems = [
     ]
   },
   {
+    name: 'community', label: 'Community', color: '#0f7be0', subs: [
+      { name: 'forum', label: 'Discussion Forum',  },
+    ]
+  },
+  {
     name: 'login', label: 'Login', color: '#0f7be0', subs: [
       { name: 'register', label: 'Register' },
     ], right: true
@@ -34,6 +39,7 @@ function selectMain(name) {
 
   if (name === 'home') router.push('/')
   else if (name === 'about') router.push('/about')
+  else if (name === 'community') router.push('/community')
   else if (name === 'login') router.push('/login')
 }
 function selectSub(main, sub) {
@@ -42,7 +48,12 @@ function selectSub(main, sub) {
   if (main === 'about') {
     if (sub === 'mission') router.push('/mission')
   }
-  if (main === 'login' && sub === 'register') router.push('/register')
+  if (main === 'login' && sub === 'register') {
+    router.push('/register')
+  }
+  if (main === 'community' && sub === 'forum') {
+    router.push('/forum')
+  }
 }
 
 const handleLogout = () => {
@@ -61,9 +72,9 @@ function goProfile() {
   if (user?.role === 'admin') {
     router.push('/admin');
   } else if (user?.role === 'user') {
-    router.push('/user');
-  } else {
     router.push('/profile');
+  } else {
+    router.push('/home');
   }
 }
 </script>

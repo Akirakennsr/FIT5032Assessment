@@ -84,7 +84,7 @@ function handleLogin() {
     if (user.role === 'admin') {
         router.push('/admin');
     } else if (user.role === 'user') {
-        router.push('/user');
+        router.push('/profile');
     } else {
         router.push('/');
     }
