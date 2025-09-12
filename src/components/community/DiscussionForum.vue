@@ -8,34 +8,41 @@ const comments = ref([]);
 const newComment = ref('');
 const newRating = ref(0);
 const user = JSON.parse(localStorage.getItem('currentUser'));
-
-onMounted(() => {
-  const saved = localStorage.getItem('forumComments');
-  if (saved) {
-    comments.value = JSON.parse(saved);
-  } else {
-    comments.value = forumComments;
-  }
-});
+// localStorage.clear(); 
+const saved = localStorage.getItem('forumComments');  
+if (saved) {
+  comments.value = JSON.parse(saved);
+} else {
+  comments.value = forumComments;
+}
 
 function addComment() {
   if (!isAuthenticated.value) {
     alert('Please login to comment.');
     return;
   }
-  if (newComment.value.trim() && newRating.value > 0) {
+  const text = newComment.value.trim();
+  if (!text) {
+    alert('Comment cannot be empty.');
+    return;
+  }
+  if (text.length > 200) {
+    alert('Comment too long (max 200 chars).');
+    return;
+  }
+  if (text && newRating.value > 0) {
     comments.value.push({
       user: user?.username || 'Anonymous',
-      text: newComment.value,
+      text: text, 
       date: new Date().toLocaleString(),
       rating: newRating.value
     });
     newComment.value = '';
     newRating.value = 0;
-  } else if (newComment.value.trim()) {
+  } else if (text) {
     comments.value.push({
       user: user?.username || 'Anonymous',
-      text: newComment.value,
+      text: text,
       date: new Date().toLocaleString(),
       rating: null
     });
