@@ -68,7 +68,7 @@ const avgRating = computed(() => {
       <h3>Comments</h3>
       <div v-for="(c, i) in comments" :key="i" class="comment-item">
         <b>{{ c.user }}</b> <span class="date">{{ c.date }}</span>
-        <div>{{ c.text }}</div>
+        <div v-html="c.text"></div>
         <div v-if="typeof c.rating === 'number' && c.rating > 0">
           <Rating :value="c.rating" :readonly="true" />
           <span class="comment-rating">({{ c.rating }}/5)</span>

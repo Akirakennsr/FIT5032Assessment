@@ -53,21 +53,6 @@ const errors = ref({
     password: null,
 });
 
-function getCurrentUserRole() {
-    const user = users.find(
-        u => u.username === formData.value.username && u.password === formData.value.password
-    );
-    return user ? user.role : null;
-}
-
-function isAdmin() {
-    return getCurrentUserRole() === 'admin';
-}
-
-function isUser() {
-    return getCurrentUserRole() === 'user';
-}
-
 function handleLogin() {
     const user = users.find(
         u => u.username === formData.value.username && u.password === formData.value.password

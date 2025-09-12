@@ -1,7 +1,7 @@
 <template>
   <section class="home-section">
     <h1>Welcome</h1>
-    <p>This is your profile page.</p>
+    <p>This is User profile page.</p>
   </section>
 </template> 
  
