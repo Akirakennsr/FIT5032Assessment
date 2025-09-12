@@ -1,3 +1,32 @@
+<template>
+  <div class="forum-section">
+    <h2>Discussion Forum</h2>
+    <div class="rating-block">
+      <span>Average Rating: <b>{{ avgRating }}</b> / 5</span>
+    </div>
+    <div class="comments-block">
+      <h3>Comments</h3>
+      <div v-for="(c, i) in comments" :key="i" class="comment-item">
+        <b>{{ c.user }}</b> <span class="date">{{ c.date }}</span>
+        <div>{{ c.text }}</div>
+        <div v-if="typeof c.rating === 'number' && c.rating > 0">
+          <Rating :value="c.rating" :readonly="true" />
+          <span class="comment-rating">({{ c.rating }}/5)</span>
+        </div>
+      </div>
+      <div v-if="isAuthenticated" class="add-comment">
+        <textarea v-model="newComment" placeholder="Add your comment..."></textarea>
+        <div class="rate-row">
+          <span>Rate:</span>
+          <Rating v-model:value="newRating" :readonly="false" />
+        </div>
+        <button @click="addComment">Submit</button>
+      </div>
+      <div v-else class="login-tip">Please login to comment and rate.</div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import Rating from '../Rating.vue';
@@ -58,34 +87,7 @@ const avgRating = computed(() => {
   return (rated.reduce((sum, c) => sum + c.rating, 0) / rated.length).toFixed(1);
 });
 </script>
-<template>
-  <div class="forum-section">
-    <h2>Discussion Forum</h2>
-    <div class="rating-block">
-      <span>Average Rating: <b>{{ avgRating }}</b> / 5</span>
-    </div>
-    <div class="comments-block">
-      <h3>Comments</h3>
-      <div v-for="(c, i) in comments" :key="i" class="comment-item">
-        <b>{{ c.user }}</b> <span class="date">{{ c.date }}</span>
-        <div >{{ c.text }}</div>
-        <div v-if="typeof c.rating === 'number' && c.rating > 0">
-          <Rating :value="c.rating" :readonly="true" />
-          <span class="comment-rating">({{ c.rating }}/5)</span>
-        </div>
-      </div>
-      <div v-if="isAuthenticated" class="add-comment">
-        <textarea v-model="newComment" placeholder="Add your comment..."></textarea>
-        <div class="rate-row">
-          <span>Rate:</span>
-          <Rating v-model:value="newRating" :readonly="false" />
-        </div>
-        <button @click="addComment">Submit</button>
-      </div>
-      <div v-else class="login-tip">Please login to comment and rate.</div>
-    </div>
-  </div>
-</template>
+
 <style scoped>
 .forum-section {
   margin: 24px auto;

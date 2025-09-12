@@ -1,3 +1,44 @@
+<template>
+  <nav class="main-nav">
+    <ul>
+      <li
+        v-for="item in navItems"
+        :key="item.name"
+        :style="{background: currentMain === item.name ? item.color : ''}"
+        @mouseenter="hoverNav = item.name"
+        @mouseleave="hoverNav = null"
+        @click="selectMain(item.name)"
+        :class="[{active: currentMain === item.name}, item.right ? 'right-nav' : '']"
+      >
+        {{ item.label }}
+        <!-- sub nav -->
+        <ul v-if="item.subs.length && hoverNav === item.name" class="sub-nav"
+            :style="{
+            left: item.right ? 'auto' : '0',
+             right: item.right ? '0' : 'auto'
+            }">
+          <li
+            v-for="sub in item.subs"
+            :key="sub.name"
+            @click.stop="selectSub(item.name, sub.name)"
+            :class="{active: currentSub === sub.name && currentMain === item.name}"
+          >
+            {{ sub.label }}
+          </li>
+        </ul>
+      </li>
+      <li class="profile-nav">
+        <button class="profile-btn" @click="goProfile" title="Profile">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M16 20v-2a4 4 0 0 0-8 0v2"/></svg>
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <div class="text-end me-4 mt-2">
+    <button v-if="isAuthenticated" class="btn btn-outline-danger btn-sm" @click="handleLogout">Logout</button>
+  </div>
+</template>
+
 <script setup>
 import { ref } from 'vue'
 import { isAuthenticated, logout } from '../auth';
@@ -79,46 +120,7 @@ function goProfile() {
 }
 </script>
 
-<template>
-  <nav class="main-nav">
-    <ul>
-      <li
-        v-for="item in navItems"
-        :key="item.name"
-        :style="{background: currentMain === item.name ? item.color : ''}"
-        @mouseenter="hoverNav = item.name"
-        @mouseleave="hoverNav = null"
-        @click="selectMain(item.name)"
-        :class="[{active: currentMain === item.name}, item.right ? 'right-nav' : '']"
-      >
-        {{ item.label }}
-        <!-- sub nav -->
-        <ul v-if="item.subs.length && hoverNav === item.name" class="sub-nav"
-            :style="{
-            left: item.right ? 'auto' : '0',
-             right: item.right ? '0' : 'auto'
-            }">
-          <li
-            v-for="sub in item.subs"
-            :key="sub.name"
-            @click.stop="selectSub(item.name, sub.name)"
-            :class="{active: currentSub === sub.name && currentMain === item.name}"
-          >
-            {{ sub.label }}
-          </li>
-        </ul>
-      </li>
-      <li class="profile-nav">
-        <button class="profile-btn" @click="goProfile" title="Profile">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M16 20v-2a4 4 0 0 0-8 0v2"/></svg>
-        </button>
-      </li>
-    </ul>
-  </nav>
-  <div class="text-end me-4 mt-2">
-    <button v-if="isAuthenticated" class="btn btn-outline-danger btn-sm" @click="handleLogout">Logout</button>
-  </div>
-</template>
+
 
 <style scoped>
 /* main nav */

@@ -1,6 +1,3 @@
-<script setup>
-
-</script>
 <template>
   <section class="community-section">
     <h1>Community</h1>

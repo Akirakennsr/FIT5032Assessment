@@ -1,3 +1,11 @@
+<template>
+  <div class="rating-stars">
+    <span v-for="i in 5" :key="i" class="star" :class="{filled: i <= rating}" @click="setRating(i)">
+      ★
+    </span>
+  </div>
+</template>
+
 <script setup>
 import { ref, watch, computed } from 'vue';
 const props = defineProps({
@@ -14,13 +22,7 @@ function setRating(val) {
   emit('rate', val);
 }
 </script>
-<template>
-  <div class="rating-stars">
-    <span v-for="i in 5" :key="i" class="star" :class="{filled: i <= rating}" @click="setRating(i)">
-      ★
-    </span>
-  </div>
-</template>
+
 <style scoped>
 .rating-stars {
   display: inline-block;
